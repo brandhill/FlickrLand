@@ -7,6 +7,9 @@
 //
 
 #import "FLAppDelegate.h"
+#import "FlickrKit.h"
+#import "FLDataSource.h"
+#import <Parse/Parse.h>
 
 @implementation FLAppDelegate
 
@@ -16,10 +19,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    //Flickr
+    [[FlickrKit sharedFlickrKit] initializeWithAPIKey:@"24dd4bdf89f8f097a03cea987546cc31" sharedSecret:@"fd359700c7617bfd"];
+    
+    //Parse
+    [Parse setApplicationId:@"mNjuJF0rjhZr9Ha1Ujp3SIDEJjZujIxCWQkfYOMy"
+                  clientKey:@"ygKk1Ud3EW34DSRUcZtxZENjmfEpu2NdzXm4n031"];
+    [PFFacebookUtils initializeFacebook];
+    
+    [FLDataSource sharedDataSource];
+    
+    [[FLDataSource sharedDataSource] importCultureData];
+    
     return YES;
 }
 
@@ -144,6 +157,17 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+
+#pragma mark - Facebook URL
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [PFFacebookUtils handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [PFFacebookUtils handleOpenURL:url];
 }
 
 @end

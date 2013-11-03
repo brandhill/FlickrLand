@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="FLCityData" representedClassName="FLCityData" syncable="YES">
+        <attribute name="cityID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="cityName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="districts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FLDistrictData" inverseName="parentCity" inverseEntity="FLDistrictData" syncable="YES"/>
+    </entity>
+    <entity name="FLCultureData" representedClassName="FLCultureData" syncable="YES">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="placeName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="FLDistrictData" representedClassName="FLDistrictData" syncable="YES">
+        <attribute name="districtID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="districtName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parentCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FLCityData" inverseName="districts" inverseEntity="FLCityData" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FLPhotoData" inverseName="place" inverseEntity="FLPhotoData" syncable="YES"/>
+    </entity>
+    <entity name="FLPhotoData" representedClassName="FLPhotoData" syncable="YES">
+        <attribute name="creatTime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="favoriteNum" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="heightM" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="photoID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourceL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourceM" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="widthM" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FLUserData" inverseName="photos" inverseEntity="FLUserData" syncable="YES"/>
+        <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FLDistrictData" inverseName="photos" inverseEntity="FLDistrictData" syncable="YES"/>
+    </entity>
+    <entity name="FLUserData" representedClassName="FLUserData" syncable="YES">
+        <attribute name="facebookID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="facebookName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flickrID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flickrName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FLPhotoData" inverseName="owner" inverseEntity="FLPhotoData" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FLCityData" positionX="18" positionY="189" width="128" height="88"/>
+        <element name="FLDistrictData" positionX="214" positionY="192" width="128" height="103"/>
+        <element name="FLPhotoData" positionX="394" positionY="192" width="128" height="208"/>
+        <element name="FLUserData" positionX="565" positionY="192" width="128" height="118"/>
+        <element name="FLCultureData" positionX="214" positionY="333" width="128" height="88"/>
+    </elements>
 </model>
